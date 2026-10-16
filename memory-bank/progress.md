@@ -1,5 +1,11 @@
 # Progress
 
+## 2026-10-16 22:25 CEST — Public site restored
+
+- User reported public access failure. DNS and HTTPS were working, but the live service served CapRover's placeholder page and `/healthz` returned 404.
+- CapRover history shows a new placeholder-image deployment at 20:03:23 UTC, after the verified application deployment. The initiating actor is unknown.
+- Restored the previously verified application digest through CapRover as deployment version 5. Rollout completed; health and Spotify setup return HTTP 200. Compared service specs before/after: only Kaleidosync changed.
+
 ## 2026-10-16 — Public Kaleidosync deployment
 
 - Cloned current upstream master `28e3d3d2`, created the public TylonHH fork, and reviewed all 18 open upstream PR head changes and their dependency applicability.

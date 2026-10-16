@@ -1,5 +1,9 @@
 # Active Context
 
+## Placeholder image recovery — 2026-10-16 22:25 CEST
+
+The user reported that the public site did not open. Read-only checks confirmed correct DNS/TLS, but CapRover version 4 had deployed `caprover/caprover-placeholder-app:latest` at 20:03:23 UTC (22:03 CEST), replacing the verified Kaleidosync image. The initiating actor is not established. Restored the existing verified digest `sha256:cca7f868a573a90eb713f6bb89c14584b90b44f86b6d21d128da13c846957610` through the authenticated CapRover deployment API as version 5. Swarm update completed at 20:24:47 UTC; HTTPS `/healthz` and `/spotify` return 200 again. Only the Kaleidosync service spec changed. No source rebuild or unrelated service changes were needed.
+
 ## Kaleidosync public deployment — 2026-10-16
 
 The user authorized building and publishing zachwinter/kaleidosync, reviewing all open PRs, and deploying a public site on their CapRover server. Source fork: https://github.com/TylonHH/kaleidosync. Local working branch: `codex/caprover-personal-spotify`; deployment code is pushed to fork `master`. Upstream is unchanged.
