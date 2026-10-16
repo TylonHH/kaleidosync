@@ -1,0 +1,53 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { beginLogin, finishLogin, getAccessToken, disconnect, readSession, spotifyRequest } from "../src/spotify-auth.mjs";
+
+test("Spotify PKCE, state validation, refresh rotation and disconnect", async () => {
+  const storage = () => {
+    const entries = new Map();
+    return { getItem: key => entries.get(key) ?? null, setItem: (key, value) => entries.set(key, value), removeItem: key => entries.delete(key) };
+  };
+  globalThis.sessionStorage = storage();
+  globalThis.localStorage = storage();
+  let authorization;
+  globalThis.location = { origin: "https://visualizer.example", assign: url => authorization = new URL(url) };
+  const clientId = "a".repeat(32);
+  await assert.rejects(() => beginLogin("invalid"), /Client ID/);
+  await beginLogin(clientId);
+  const pending = JSON.parse(sessionStorage.getItem("kaleidosync.spotify.pkce"));
+  assert.equal(authorization.origin, "https://accounts.spotify.com");
+  assert.equal(authorization.searchParams.get("redirect_uri"), "https://visualizer.example/spotify/callback");
+  assert.equal(authorization.searchParams.get("code_challenge_method"), "S256");
+  const expected = Buffer.from(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(pending.verifier))).toString("base64url");
+  assert.equal(authorization.searchParams.get("code_challenge"), expected);
+  assert.equal(authorization.searchParams.get("scope"), "user-read-currently-playing user-read-playback-state");
+  let calls = 0;
+  globalThis.fetch = async (url, options) => {
+    calls++;
+    assert.equal(url, "https://accounts.spotify.com/api/token");
+    assert.equal(options.body.get("client_id"), clientId);
+    assert.equal(options.body.get("client_secret"), null);
+    if (calls === 1) assert.equal(options.body.get("code_verifier"), pending.verifier);
+    return Response.json({ access_token: `access-${calls}`, refresh_token: `refresh-${calls}`, expires_in: 3600 });
+  };
+  await assert.rejects(() => finishLogin("?code=code&state=wrong"), /security check/);
+  assert.equal(calls, 0);
+  sessionStorage.setItem("kaleidosync.spotify.pkce", JSON.stringify({ ...pending, created: Date.now() - 600001 }));
+  await assert.rejects(() => finishLogin(`?code=code&state=${pending.state}`), /expired/);
+  sessionStorage.setItem("kaleidosync.spotify.pkce", JSON.stringify(pending));
+  await finishLogin(`?code=code&state=${pending.state}`);
+  assert.equal(sessionStorage.getItem("kaleidosync.spotify.pkce"), null);
+  assert.equal(await getAccessToken(), "access-1");
+  assert.equal(calls, 1);
+  const tokens = await Promise.all([getAccessToken(true), getAccessToken(true)]);
+  assert.deepEqual(tokens, ["access-2", "access-2"]);
+  assert.equal(calls, 2);
+  assert.equal(readSession().refreshToken, "refresh-2");
+  assert.equal(localStorage.getItem("kaleidosync.spotify"), null);
+  await assert.rejects(() => spotifyRequest("//attacker.example"), /Invalid/);
+  globalThis.fetch = async () => Response.json({ error: "invalid_grant" }, { status: 400 });
+  await assert.rejects(() => getAccessToken(true), /could not authorize/);
+  assert.equal(readSession(), null);
+  disconnect();
+  await assert.rejects(() => getAccessToken(), /Connect/);
+});

@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host --port 5173",
-    "build": "NODE_ENV=production vite build",
+    "build": "vite build",
+    "test": "node --test test/*.test.mjs",
     "preview": "vite preview",
     "start": "node server.js"
   },
@@ -14,15 +15,25 @@
     "@wearesage/editor": "0.1.0",
     "@wearesage/sass": "0.1.1",
     "@wearesage/shared": "1.6.0",
-    "@wearesage/static": "3.1.0",
     "@wearesage/vue": "4.2.999999999",
     "axios": "^1.10.0",
     "dotenv": "^17.0.1",
+    "compression": "1.8.2",
+    "express": "5.1.0",
+    "helmet": "8.1.0",
     "pinia": "3.0.3",
     "sass": "1.89.1",
     "socket.io-client": "4.8.1",
-    "vite": "6.3.5",
-    "vue": "3.5.17"
+    "vite": "6.4.3",
+    "vue": "3.5.44"
+  },
+  "overrides": {
+    "vite": "$vite",
+    "vue": "$vue",
+    "maplibre-gl": "6.4.1",
+    "markdown-it": "14.3.1",
+    "linkify-it": "5.0.2",
+    "ws": "8.22.0"
   },
   "devDependencies": {
     "@types/three": "0.173.0",

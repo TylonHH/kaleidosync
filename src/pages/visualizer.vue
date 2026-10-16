@@ -1,5 +1,6 @@
 <template>
   <View :class="{ hidden: ui.showShaderScroll }">
+    <a v-if="sources.source === AudioSource.SPOTIFY && spotify.status" class="spotify-status" href="/spotify" role="status">{{ spotify.status }}</a>
     <!-- <Transition name="fade-up">
       <AccountPill v-if="showMenu || showSources" />
     </Transition> -->
@@ -25,6 +26,8 @@ import { View, useSources, useViewport, useUI, useSketches, parseQueryString, Tr
 import { Menu, AudioSources } from "../components";
 import { useRouter } from "@wearesage/vue";
 import { AudioSource, RadioParadiseStation } from "@wearesage/shared";
+import { useSpotify } from "../spotify";
+const spotify = useSpotify();
 
 const router = useRouter();
 const viewport = useViewport();
@@ -150,4 +153,5 @@ function selectRadioParadise(data: { station: RadioParadiseStation }) {
 .hidden {
   pointer-events: none;
 }
+.spotify-status { position: fixed; bottom: 6rem; left: 1rem; right: 1rem; max-width: 50rem; padding: .75rem 1rem; border-radius: 1rem; background: #111e; color: #fff; font-size: .9rem; z-index: 600; }
 </style>

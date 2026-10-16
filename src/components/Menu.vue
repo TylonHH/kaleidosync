@@ -25,14 +25,18 @@
 </template>
 
 <script setup lang="ts">
-import { IconButton, useViewport, useSources, useNativeShare, AudioSourceButton } from "@wearesage/vue";
+import { IconButton, useViewport, useSources, AudioSourceButton } from "@wearesage/vue";
 import { AudioSource } from "@wearesage/shared";
 
 defineEmits(["open-sources", "open-designs"]);
 
 const viewport = useViewport();
 const sources = useSources();
-const share = useNativeShare();
+async function share() {
+  const url = location.origin;
+  if (navigator.share) await navigator.share({ title: "Kaleidosync", url }).catch(() => {});
+  else await navigator.clipboard.writeText(url);
+}
 
 const state = {
   showMenuLabels: false

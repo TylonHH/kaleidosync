@@ -24,7 +24,7 @@
     <Transition name="fade">
       <nav v-if="!radioParadise">
         <MenuHeader @close="$emit('close')" title="choose your audio source" />
-        <IconButton icon="spotify" @click="$emit('select-source', AudioSource.SPOTIFY)" label="Spotify" />
+        <IconButton icon="spotify" to="/spotify" label="Spotify" />
         <IconButton icon="audius" @click="$emit('select-source', AudioSource.AUDIUS)" label="Audius" />
         <IconButton icon="radio-paradise" @click="toggleRadioParadise" label="Radio Paradise" />
         <IconButton icon="kexp" @click="$emit('select-source', AudioSource.KEXP)" label="KEXP" />

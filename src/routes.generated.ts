@@ -10,6 +10,7 @@ export interface SageRoute {
 }
 
 export const routes: SageRoute[] = [
+  { path: '/spotify', component: () => import('./pages/spotify.vue'), name: 'Connect Spotify', meta: {}, params: [] },
   {
     path: '/audius/users/:id',
     component: () => import('./pages/audius.users.[id].vue'),
