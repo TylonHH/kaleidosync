@@ -28,4 +28,6 @@ Deploy an immutable image digest when possible. To roll back, deploy a previousl
 
 Automated tests cover OAuth state, PKCE challenge, expiry, token refresh/rotation, disconnect and Audius response adaptation. Browser checks cover the rendered visualizer, Spotify form, source navigation and sample-file loading. A real Spotify login and Audio Analysis response require a listener's own Spotify app and account; these cannot be verified with placeholder credentials.
 
+OAuth callback redirects use Sage's router so its reactive route state remains synchronized with the address bar. A cancelled or invalid callback must show the setup error, never a 404 page.
+
 Sage still brings unused wallet and development dependencies with outstanding npm advisories into the build stage. They are absent from the production server dependency tree. The production bundle is tree-shaken; this does not establish that every upstream frontend advisory is unreachable. Review future upstream updates before upgrading the Sage package. Do not describe the full source dependency audit as clean.

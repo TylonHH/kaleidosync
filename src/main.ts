@@ -1,4 +1,4 @@
-import { createApp } from "@wearesage/vue";
+import { createApp, useRouter } from "@wearesage/vue";
 import * as generatedRoutes from "./routes.generated";
 import App from "./App.vue";
 import { finishLogin } from "./spotify-auth.mjs";
@@ -7,10 +7,10 @@ async function initializeApp() {
   if (location.pathname === "/spotify/callback") {
     try {
       await finishLogin();
-      history.replaceState({}, "", "/visualizer");
+      useRouter().replace("/visualizer");
     } catch (error) {
       sessionStorage.setItem("kaleidosync.spotify.error", (error as Error).message);
-      history.replaceState({}, "", "/spotify");
+      useRouter().replace("/spotify");
     }
   }
   const { app, router, pinia } = await createApp(App, { routes: generatedRoutes });
