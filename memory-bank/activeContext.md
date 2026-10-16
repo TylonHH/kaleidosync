@@ -6,7 +6,7 @@ The user authorized building and publishing zachwinter/kaleidosync, reviewing al
 
 Public site: https://kaleidosync.caprover.drrene.de. Each visitor connects their own Spotify Developer Client ID and Spotify account at `/spotify`. The exact callback is `https://kaleidosync.caprover.drrene.de/spotify/callback`. PKCE uses only two playback read scopes. Tokens stay in browser session storage and go directly to Spotify; no shared Spotify secret or server account database exists.
 
-Current application revision: `bf14b2e2f3c7e7788f89245436a4d3b79cd4fb41`. Image: `ghcr.io/tylonhh/kaleidosync@sha256:b923dd97478fba63af67dbdb26c4ef8867c3af416726b66edc1adb27f107a8a2`. Successful workflow: https://github.com/TylonHH/kaleidosync/actions/runs/38949927549. Anonymous pull verified. CapRover app `kaleidosync` uses container port 80, one desired replica, no volumes and no configured Spotify secrets. HTTPS and Force HTTPS are enabled.
+Current application revision: `269d1bcfd8cf1995ea2ea82cf5580bb67f1735e2`. Image: `ghcr.io/tylonhh/kaleidosync@sha256:cca7f868a573a90eb713f6bb89c14584b90b44f86b6d21d128da13c846957610`. Successful workflow: https://github.com/TylonHH/kaleidosync/actions/runs/38950496837. Anonymous pull verified. CapRover app `kaleidosync` uses container port 80, one desired replica, no volumes and no configured Spotify secrets. HTTPS and Force HTTPS are enabled.
 
 All 18 open upstream PRs were reviewed. Adapted #104, retained #85's all-artists behavior, applied #77's reduced-scope intent. The remaining dependency PRs are obsolete or superseded. Decisions: `docs/PR-REVIEW.md`.
 
