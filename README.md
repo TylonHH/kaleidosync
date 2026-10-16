@@ -1,5 +1,15 @@
 # KALEIDOSYNC: music visualzation for the web
 
+## Self-hosted deployment
+
+This fork runs at [kaleidosync.caprover.drrene.de](https://kaleidosync.caprover.drrene.de). Open [Connect Spotify](https://kaleidosync.caprover.drrene.de/spotify) to use your own Spotify Developer Client ID and account. No shared Spotify credentials or client secrets are needed.
+
+Docker image: `ghcr.io/tylonhh/kaleidosync:latest`. See [deployment and listener setup](docs/DEPLOYMENT.md) and [review of all 18 open upstream PRs](docs/PR-REVIEW.md).
+
+Spotify blocks Audio Analysis for new apps. Those apps can show track information but cannot provide Spotify beat synchronization. Local files and microphone input provide real-time audio visualization without that endpoint. Existing Spotify apps with Audio Analysis access can use it.
+
+The original project's background and changelog follow below.
+
 #### Try it out at [https://www.kaleidosync.com](https://www.kaleidosync.com)!
 
 ![](https://beta.kaleidosync.com/images/og.jpg)

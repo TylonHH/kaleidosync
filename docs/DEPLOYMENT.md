@@ -8,6 +8,17 @@
 - Health endpoint: `/healthz`.
 - Docker image builds for Linux amd64 by default. The workflow runs tests before publishing.
 
+## Verified release — 2026-10-16
+
+- Application revision: `bf14b2e2f3c7e7788f89245436a4d3b79cd4fb41`.
+- Deployed image: `ghcr.io/tylonhh/kaleidosync@sha256:b923dd97478fba63af67dbdb26c4ef8867c3af416726b66edc1adb27f107a8a2`.
+- Successful image workflow: https://github.com/TylonHH/kaleidosync/actions/runs/38949927549.
+- Anonymous GHCR pull is verified. CapRover uses the immutable digest. HTTPS and Force HTTPS are enabled.
+- Public homepage, visualizer, Spotify form, rejected OAuth callback and health endpoint are verified. `.env` returns 404. The Audius adapter returns 20 tracks and 20 playlists.
+- Production server npm audit: zero findings. Full source audit: 44 findings (2 low, 31 moderate, 11 high, 0 critical), primarily in upstream wallet/build dependencies. See the limits below.
+- Service-spec comparison identifies only `srv-captain--kaleidosync` as changed.
+- Initial release `a922a111` / `sha256:d24a867f7177b1d6acfa7618510ca8d8062b6d67dddd4c434a646b4c1ccd155c` is retained as an image, but has a callback routing bug; prefer the verified release above.
+
 ## Listener setup
 
 Open `/spotify`, create a Spotify Developer app with Web API access, add the exact Redirect URI above, paste that app's Client ID, and choose Connect Spotify. Spotify handles account login and consent. Never enter a client secret into this site.
