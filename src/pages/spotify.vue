@@ -50,17 +50,18 @@ function logout() { disconnect(); location.assign("/spotify"); }
 </script>
 
 <style scoped>
-.spotify-setup { position: relative; z-index: 20; max-width: 52rem; margin: 2rem auto; padding: 2rem; background: #111e; color: #fff; border-radius: 1.5rem; line-height: 1.6; overflow-wrap: anywhere; }
-h1 { font-size: clamp(1.8rem, 5vw, 3rem); margin: 1rem 0; }
-h2 { font-size: 1.2rem; }
+.spotify-setup { position: fixed; inset: 1rem; z-index: 20; width: calc(100% - 2rem); max-width: 52rem; margin: 0 auto; padding: 2rem; box-sizing: border-box; overflow: auto; background: #111; color: #fff; border-radius: 1.5rem; font-family: system-ui, sans-serif; line-height: 1.6; overflow-wrap: anywhere; }
+h1 { font: 650 clamp(1.8rem, 5vw, 3rem)/1.2 system-ui, sans-serif; text-transform: none; letter-spacing: normal; margin: 1rem 0; }
+h2 { font: 600 1.2rem/1.3 system-ui, sans-serif; text-transform: none; letter-spacing: normal; }
 p, ol, aside { margin: 1rem 0; }
 ol { padding-left: 1.5rem; }
-a { color: #82efb2; text-decoration: underline; }
+a { display: inline; color: #82efb2; text-decoration: underline; }
+li { display: list-item; margin: .5rem 0; }
 code { user-select: all; font-size: .9rem; }
 form { display: grid; gap: .75rem; }
 input { width: 100%; box-sizing: border-box; background: #222; color: #fff; border: 1px solid #888; border-radius: .5rem; padding: .9rem; font: inherit; }
 button { background: #a5f5c5; color: #102116; border: 0; border-radius: 1.5rem; padding: .7rem 1.2rem; cursor: pointer; font: inherit; }
 button:disabled { opacity: .6; }
 :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
-@media (max-width: 600px) { .spotify-setup { margin: .5rem; padding: 1.25rem; } }
+@media (max-width: 600px) { .spotify-setup { inset: .5rem; width: calc(100% - 1rem); padding: 1.25rem; } }
 </style>
